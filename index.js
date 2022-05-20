@@ -4,7 +4,12 @@ const fs = require('fs');
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true, limit: '5MB' }));
+app.use(
+  express.urlencoded({
+    extended: true,
+    limit: '5MB',
+  }),
+);
 
 app.post('/upload', (req, res) => {
   let buffer = new Buffer.from(req.body.file, 'base64');
@@ -14,11 +19,11 @@ app.post('/upload', (req, res) => {
   fs.writeFileSync(imageName, buffer, 'base64', (error) => {
     if (error) console.log(error);
   });
+
+  res.status(200);
 });
 
-
-route = 3010;
-
+route = 3000;
 
 app.listen(route, () => {
   console.log(`listening on http://localhost:${route}`);
